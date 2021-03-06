@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Drawing;
+﻿using System.Drawing;
+using System.Linq;
 
 namespace ChessSimulator.Pieces
 {
@@ -19,9 +19,8 @@ namespace ChessSimulator.Pieces
 
         public Point[] GetMoves(IGameBoard gameBoard)
         {
-            var result = new List<Point>();
-            
-            return result.ToArray();
+            var boardStateInfos = gameBoard.GetBoardStatesAround(Position);
+            return boardStateInfos.Where(x => !x.State.HasValue || x.State != Colour).Select(x => x.Position).ToArray();
         }
     }
 }

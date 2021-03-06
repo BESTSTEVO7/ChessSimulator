@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace ChessSimulator.Pieces
+﻿namespace ChessSimulator.Pieces
 {
     internal static class PieceNames
     {
