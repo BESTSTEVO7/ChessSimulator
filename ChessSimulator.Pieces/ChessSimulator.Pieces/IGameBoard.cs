@@ -1,12 +1,11 @@
 ﻿using System.Collections.Generic;
-using System.Drawing;
 
 namespace ChessSimulator.Pieces
 {
     public interface IGameBoard
     {
-        public BoardStateInfo GetBoardState(Point point);
+        public BoardStateInfo GetBoardState(Position point);
 
-        public IEnumerable<BoardStateInfo> GetBoardStatesAround(Point point);
+        public IEnumerable<BoardStateInfo> GetBoardStatesAround(Position point);
     }
 }
