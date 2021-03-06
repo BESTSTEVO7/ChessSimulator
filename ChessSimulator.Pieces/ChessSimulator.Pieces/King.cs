@@ -6,19 +6,16 @@ namespace ChessSimulator.Pieces
     {
         public string Name { get => PieceNames.King; }
 
-        public Position Position { get; set; }
-
         public Colour Colour { get; }
 
-        public King(Position startPosition, Colour colour)
+        public King(Colour colour)
         {
-            Position = startPosition;
             Colour = colour;
         }
 
-        public Position[] GetMoves(IGameBoard gameBoard)
+        public Position[] GetMoves(IGameBoard gameBoard, Position position)
         {
-            var boardStateInfos = gameBoard.GetBoardStatesAround(Position);
+            var boardStateInfos = gameBoard.GetBoardStatesAround(position);
             return boardStateInfos.Where(x => !x.State.HasValue || x.State != Colour).Select(x => x.Position).ToArray();
         }
     }

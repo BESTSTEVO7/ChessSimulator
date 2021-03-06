@@ -6,10 +6,8 @@ namespace ChessSimulator.Pieces
     {
         public string Name { get; }
 
-        public Position Position { get; }
-
         public Colour Colour { get; }
 
-        public Position[] GetMoves(IGameBoard gameBoard);
+        public Position[] GetMoves(IGameBoard gameBoard, Position position);
     }
 }
