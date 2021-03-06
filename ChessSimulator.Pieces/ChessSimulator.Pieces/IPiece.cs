@@ -4,12 +4,12 @@ namespace ChessSimulator.Pieces
 {
     public interface IPiece
     {
-        public string Name { get; set; }
+        public string Name { get; }
 
         public Point Position { get; }
 
-        public Colors Color { get; }
+        public Colour Colour { get; }
 
-        public Point[] GetMoves();
+        public Point[] GetMoves(IGameBoard gameBoard);
     }
 }

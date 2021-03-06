@@ -1,7 +1,9 @@
 ﻿namespace ChessSimulator.Pieces
 {
-    public enum Colors
+    public enum BoardState
     {
+        NotValid,
+        None,
         White,
         Black
     }
