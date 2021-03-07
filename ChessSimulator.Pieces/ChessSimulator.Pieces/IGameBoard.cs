@@ -4,7 +4,7 @@ namespace ChessSimulator.Pieces
 {
     public interface IGameBoard
     {
-        public BoardStateInfo GetBoardState(Position point);
+        public BoardStateInfo GetBoardStateInfo(Position point);
 
         public void AddPiece(IPiece piece, Position position);
 
