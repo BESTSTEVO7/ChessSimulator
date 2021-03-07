@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30804.86
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChessSimulator.Pieces", "ChessSimulator.Pieces\ChessSimulator.Pieces.csproj", "{8A57A7B7-2755-4E0F-ABCF-EFADA2187C78}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChessSimulator", "ChessSimulator\ChessSimulator.csproj", "{8A57A7B7-2755-4E0F-ABCF-EFADA2187C78}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChessSimulator.Pieces.Tests", "ChessSimulator.Pieces.Tests\ChessSimulator.Pieces.Tests.csproj", "{32A5D689-78C1-4DA3-9BB8-58A91EAF5AA2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChessSimulator.Tests", "ChessSimulator.Tests\ChessSimulator.Tests.csproj", "{32A5D689-78C1-4DA3-9BB8-58A91EAF5AA2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

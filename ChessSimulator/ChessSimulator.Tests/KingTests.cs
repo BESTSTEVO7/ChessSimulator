@@ -2,7 +2,7 @@
 using NUnit.Framework;
 using System.Collections.Generic;
 
-namespace ChessSimulator.Pieces.Tests
+namespace ChessSimulator.Tests
 {
     [TestFixture]
     public class KingTests

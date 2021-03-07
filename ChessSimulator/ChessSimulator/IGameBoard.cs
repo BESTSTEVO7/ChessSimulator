@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace ChessSimulator.Pieces
+namespace ChessSimulator
 {
     public interface IGameBoard
     {

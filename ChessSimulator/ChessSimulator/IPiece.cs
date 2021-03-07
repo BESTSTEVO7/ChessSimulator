@@ -1,6 +1,6 @@
 ﻿using System.Drawing;
 
-namespace ChessSimulator.Pieces
+namespace ChessSimulator
 {
     public interface IPiece
     {

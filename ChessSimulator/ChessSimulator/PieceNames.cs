@@ -1,4 +1,4 @@
-﻿namespace ChessSimulator.Pieces
+﻿namespace ChessSimulator
 {
     internal static class PieceNames
     {

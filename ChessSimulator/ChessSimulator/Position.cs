@@ -1,4 +1,4 @@
-﻿namespace ChessSimulator.Pieces
+﻿namespace ChessSimulator
 {
     public struct Position
     {
