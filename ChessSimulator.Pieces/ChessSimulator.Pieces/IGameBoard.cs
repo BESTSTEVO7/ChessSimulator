@@ -8,7 +8,7 @@ namespace ChessSimulator.Pieces
 
         public void AddPiece(IPiece piece, Position position);
 
-        public IPiece RemovePiece(Position position);
+        public void RemovePiece(Position position);
 
         public IEnumerable<BoardStateInfo> GetBoardStatesAround(Position point);
     }

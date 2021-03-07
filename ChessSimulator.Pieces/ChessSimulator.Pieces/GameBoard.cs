@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace ChessSimulator.Pieces
 {
@@ -13,9 +12,15 @@ namespace ChessSimulator.Pieces
             this.board = board;
         }
 
+        private IPiece this[Position position]
+        {
+            get { return board[position.X, position.Y]; }
+            set { board[position.X, position.Y] = value; }
+        }
+
         // TODO rethink this and check if Builder pattern would be more appropriate
         // something like builder.AddPiece(...).AddPiece(...).AddPiece(...).BuildBoard();
-        public static GameBoard GenerateBoard(int rows, int columns, IEnumerable<(IPiece, Position)> pieces) 
+        public static GameBoard GenerateBoard(int rows, int columns, IEnumerable<(IPiece, Position)> pieces)
         {
             IPiece[,] newBoard = new IPiece[rows, columns];
             var gameBoard = new GameBoard(newBoard);
@@ -23,25 +28,31 @@ namespace ChessSimulator.Pieces
             {
                 gameBoard.AddPiece(piece.Item1, piece.Item2);
             }
+
             return gameBoard;
         }
 
         public void AddPiece(IPiece piece, Position position)
         {
-            throw new NotImplementedException();
+            this[position] = piece;
         }
 
-        public BoardStateInfo GetBoardState(Position point)
+        public void RemovePiece(Position position)
         {
-            throw new NotImplementedException();
+            this[position] = null;
+        }
+
+        public BoardStateInfo GetBoardState(Position position)
+        {
+            if (this[position] is { })
+            {
+                return new BoardStateInfo { State = this[position].Colour, Position = position };
+            }
+
+            return new BoardStateInfo { Position = position };
         }
 
         public IEnumerable<BoardStateInfo> GetBoardStatesAround(Position point)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IPiece RemovePiece(Position position)
         {
             throw new NotImplementedException();
         }
