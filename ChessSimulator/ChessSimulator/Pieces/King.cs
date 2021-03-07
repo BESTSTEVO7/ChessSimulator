@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 
-namespace ChessSimulator
+namespace ChessSimulator.Pieces
 {
     public class King : IPiece
     {

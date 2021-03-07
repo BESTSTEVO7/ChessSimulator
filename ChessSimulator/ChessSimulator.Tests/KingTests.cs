@@ -1,4 +1,5 @@
-﻿using Moq;
+﻿using ChessSimulator.Pieces;
+using Moq;
 using NUnit.Framework;
 using System.Collections.Generic;
 

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using ChessSimulator.Pieces;
+using System.Collections.Generic;
 
 namespace ChessSimulator
 {
