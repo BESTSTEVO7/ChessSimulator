@@ -4,7 +4,7 @@ using Moq;
 using NUnit.Framework;
 using System.Collections.Generic;
 
-namespace ChessSimulator.Tests
+namespace ChessSimulator.Tests.Pieces
 {
     [TestFixture]
     public class KingTests
@@ -135,7 +135,7 @@ namespace ChessSimulator.Tests
                 }
             };
 
-            var expectedMoves = new Position[]{};
+            var expectedMoves = new Position[] { };
 
             gameBoard
                 .Setup(x => x.GetBoardStateInfo())
