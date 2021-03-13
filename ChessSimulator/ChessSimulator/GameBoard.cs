@@ -44,6 +44,11 @@ namespace ChessSimulator
 
         public BoardStateInfo GetBoardStateInfo(Position position)
         {
+            if (!IsOnBoard(position)) 
+            {
+                return null;
+            }
+
             if (this[position] is { })
             {
                 return new BoardStateInfo { State = this[position].Colour, Position = position };
@@ -52,6 +57,19 @@ namespace ChessSimulator
             return new BoardStateInfo { Position = position };
         }
 
+        public IEnumerable<BoardStateInfo> GetBoardStateInfo(params Position[] positions)
+        {
+            var result = new List<BoardStateInfo>();
+            foreach (var position in positions) 
+            {
+                result.Add(GetBoardStateInfo(position));
+            }
+
+            return result;
+        }
+
+        // this is used for the king move calculation, maybe it is smarter to move it there and only expose 
+        // a GetBoardStateInfo(Position position) which all pieces use.
         public IEnumerable<BoardStateInfo> GetBoardStatesAround(Position point)
         {
             var result = new List<BoardStateInfo>();
@@ -91,6 +109,11 @@ namespace ChessSimulator
         private Colour? GetBoardState(int x, int y)
         {
             return board[x, y]?.Colour;
+        }
+
+        public BoardStateInfo GetBoardStateInfo(int x, int y)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }
