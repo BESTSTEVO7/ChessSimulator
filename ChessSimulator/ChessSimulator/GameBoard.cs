@@ -70,27 +70,12 @@ namespace ChessSimulator
 
         private bool IsOnBoard(Position position)
         {
-            return IsOnBoard(position.X, position.Y);
-        }
-
-        private bool IsOnBoard(int x, int y)
-        {
-            return -1 < x && x < board.Length && -1 < y || -1 < y && y < board.GetLength(1);
+            return -1 < position.X && position.X < board.Length && -1 < position.Y || -1 < position.Y && position.Y < board.GetLength(1);
         }
 
         private Colour? GetBoardState(Position position)
         {
-            return GetBoardState(position.X, position.Y);
-        }
-
-        private Colour? GetBoardState(int x, int y)
-        {
-            return board[x, y]?.Colour;
-        }
-
-        public BoardStateInfo GetBoardStateInfo(int x, int y)
-        {
-            throw new System.NotImplementedException();
+            return board[position.X, position.Y]?.Colour;
         }
     }
 }

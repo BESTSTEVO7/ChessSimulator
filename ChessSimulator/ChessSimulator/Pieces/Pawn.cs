@@ -2,7 +2,7 @@
 
 namespace ChessSimulator.Pieces
 {
-    class Pawn : IPiece
+    public class Pawn : IPiece
     {
         private readonly Direction direction;
 
@@ -20,8 +20,8 @@ namespace ChessSimulator.Pieces
         {
             var result = new List<Position>();
             var aheadState = direction == Direction.Forward
-                ? gameBoard.GetBoardStateInfo(position.X, position.Y + 1)
-                : gameBoard.GetBoardStateInfo(position.X, position.Y - 1);
+                ? gameBoard.GetBoardStateInfo(new Position(position.X - 1, position.Y))
+                : gameBoard.GetBoardStateInfo(new Position(position.X + 1, position.Y));
 
             var diagonalStates = direction == Direction.Forward
                 ? gameBoard.GetBoardStateInfo(new Position(position.X - 1, position.Y + 1), new Position(position.X + 1, position.Y + 1))
@@ -34,7 +34,7 @@ namespace ChessSimulator.Pieces
 
             foreach (var boardStateInfo in diagonalStates) 
             {
-                if (boardStateInfo.State.Value != Colour)
+                if (boardStateInfo.State.HasValue && boardStateInfo.State.Value != Colour)
                 {
                     result.Add(boardStateInfo.Position);
                 }
