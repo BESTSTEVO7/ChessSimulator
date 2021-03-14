@@ -14,6 +14,7 @@ namespace ChessSimulator.Pieces
             Colour = colour;
         }
 
+        // Think how to enable castle move
         public Position[] GetMoves(IGameBoard gameBoard, Position position)
         {
             var positionsArround = GetPointsArround(position);
