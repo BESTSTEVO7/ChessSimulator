@@ -24,6 +24,7 @@ namespace ChessSimulator.Tests.Pieces
         public void GetMoves_AllMovesPossible()
         {
             King king = new King(Colour.White);
+            Position kingPosition = new Position(1, 1);
 
             var boardStateInfos = new List<BoardStateInfo>
             {
@@ -74,12 +75,10 @@ namespace ChessSimulator.Tests.Pieces
             };
 
             gameBoard
-                .Setup(x => x.GetBoardStateInfo())
+                .Setup(x => x.GetBoardStateInfo(It.IsAny<Position[]>()))
                 .Returns(boardStateInfos);
 
-            gameBoard.Setup(x => x.GetBoardStatesAround(It.Is<Position>(x => x.X == 1 && x.Y == 1))).Returns(boardStateInfos);
-
-            var result = king.GetMoves(gameBoard.Object, new Position(1, 1));
+            var result = king.GetMoves(gameBoard.Object, kingPosition);
             result.Should().BeEquivalentTo(expectedMoves);
         }
 
@@ -90,6 +89,7 @@ namespace ChessSimulator.Tests.Pieces
         public void GetMoves_SurroundedWithFriends_NoMovePossible()
         {
             King king = new King(Colour.White);
+            Position kingPosition = new Position(1, 1);
 
             var boardStateInfos = new List<BoardStateInfo>
             {
@@ -138,12 +138,10 @@ namespace ChessSimulator.Tests.Pieces
             var expectedMoves = new Position[] { };
 
             gameBoard
-                .Setup(x => x.GetBoardStateInfo())
+                .Setup(x => x.GetBoardStateInfo(It.IsAny<Position[]>()))
                 .Returns(boardStateInfos);
 
-            gameBoard.Setup(x => x.GetBoardStatesAround(It.Is<Position>(x => x.X == 1 && x.Y == 1))).Returns(boardStateInfos);
-
-            var result = king.GetMoves(gameBoard.Object, new Position(1, 1));
+            var result = king.GetMoves(gameBoard.Object, kingPosition);
             result.Should().BeEquivalentTo(expectedMoves);
         }
 
@@ -154,6 +152,7 @@ namespace ChessSimulator.Tests.Pieces
         public void GetMoves_SurroundedWithEnemies_AllMovesPossible()
         {
             King king = new King(Colour.White);
+            Position kingPosition = new Position(1, 1);
 
             var boardStateInfos = new List<BoardStateInfo>
             {
@@ -212,12 +211,208 @@ namespace ChessSimulator.Tests.Pieces
             };
 
             gameBoard
-                .Setup(x => x.GetBoardStateInfo())
+                .Setup(x => x.GetBoardStateInfo(It.IsAny<Position[]>()))
                 .Returns(boardStateInfos);
 
-            gameBoard.Setup(x => x.GetBoardStatesAround(It.Is<Position>(x => x.X == 1 && x.Y == 1))).Returns(boardStateInfos);
+            var result = king.GetMoves(gameBoard.Object, kingPosition);
+            result.Should().BeEquivalentTo(expectedMoves);
+        }
 
-            var result = king.GetMoves(gameBoard.Object, new Position(1, 1));
+        //| |K| |
+        //| | | | 
+        [Test]
+        public void GetMoves_ForwardsWall_AllBackwardMovesPossible()
+        {
+            King king = new King(Colour.White);
+            Position kingPosition = new Position(0, 1);
+
+            var boardStateInfos = new List<BoardStateInfo>
+            {
+                new BoardStateInfo
+                {
+                    Position = new Position(0, 0)
+                },
+                new BoardStateInfo
+                {
+                    Position = new Position(0, 2)
+                },
+                new BoardStateInfo
+                {
+                    Position = new Position(1, 0)
+                },
+                 new BoardStateInfo
+                {
+                    Position = new Position(1, 1)
+                },
+                new BoardStateInfo
+                {
+                    Position = new Position(1, 2)
+                }
+            };
+
+            var expectedMoves = new Position[]
+            {
+                new Position(0,0),
+                new Position(0,2),
+                new Position(1,0),
+                new Position(1,1),
+                new Position(1,2)
+            };
+
+            gameBoard
+                .Setup(x => x.GetBoardStateInfo(It.IsAny<Position[]>()))
+                .Returns(boardStateInfos);
+
+            var result = king.GetMoves(gameBoard.Object, kingPosition);
+            result.Should().BeEquivalentTo(expectedMoves);
+        }
+
+        //| | | |
+        //| |K| | 
+        [Test]
+        public void GetMoves_BackwardsWall_AllForwardMovesPossible()
+        {
+            King king = new King(Colour.White);
+            Position kingPosition = new Position(1, 1);
+
+            var boardStateInfos = new List<BoardStateInfo>
+            {
+                new BoardStateInfo
+                {
+                    Position = new Position(0, 0)
+                },
+                new BoardStateInfo
+                {
+                    Position = new Position(0, 1)
+                },
+                new BoardStateInfo
+                {
+                    Position = new Position(0, 2)
+                },
+                 new BoardStateInfo
+                {
+                    Position = new Position(1, 0)
+                },
+                new BoardStateInfo
+                {
+                    Position = new Position(1, 2)
+                }
+            };
+
+            var expectedMoves = new Position[]
+            {
+                new Position(0, 0),
+                new Position(0, 1),
+                new Position(0, 2),
+                new Position(1, 0),
+                new Position(1, 2)
+            };
+
+            gameBoard
+                .Setup(x => x.GetBoardStateInfo(It.IsAny<Position[]>()))
+                .Returns(boardStateInfos);
+
+            var result = king.GetMoves(gameBoard.Object, kingPosition);
+            result.Should().BeEquivalentTo(expectedMoves);
+        }
+
+        //| | |
+        //|K| |
+        //| | |
+        [Test]
+        public void GetMoves_LeftWall_AllRightMovesPossible()
+        {
+            King king = new King(Colour.White);
+            Position kingPosition = new Position(1, 0);
+
+            var boardStateInfos = new List<BoardStateInfo>
+            {
+                new BoardStateInfo
+                {
+                    Position = new Position(0, 0)
+                },
+                new BoardStateInfo
+                {
+                    Position = new Position(0, 1)
+                },
+                new BoardStateInfo
+                {
+                    Position = new Position(1, 1)
+                },
+                 new BoardStateInfo
+                {
+                    Position = new Position(2, 0)
+                },
+                new BoardStateInfo
+                {
+                    Position = new Position(2, 1)
+                }
+            };
+
+            var expectedMoves = new Position[]
+            {
+                new Position(0, 0),
+                new Position(0, 1),
+                new Position(1, 1),
+                new Position(2, 0),
+                new Position(2, 1)
+            };
+
+            gameBoard
+                .Setup(x => x.GetBoardStateInfo(It.IsAny<Position[]>()))
+                .Returns(boardStateInfos);
+
+            var result = king.GetMoves(gameBoard.Object, kingPosition);
+            result.Should().BeEquivalentTo(expectedMoves);
+        }
+
+        //| | |
+        //| |K|
+        //| | |
+        [Test]
+        public void GetMoves_RightWall_AllLeftMovesPossible()
+        {
+            King king = new King(Colour.White);
+            Position kingPosition = new Position(1, 1);
+
+            var boardStateInfos = new List<BoardStateInfo>
+            {
+                new BoardStateInfo
+                {
+                    Position = new Position(0, 0)
+                },
+                new BoardStateInfo
+                {
+                    Position = new Position(0, 1)
+                },
+                new BoardStateInfo
+                {
+                    Position = new Position(1, 0)
+                },
+                 new BoardStateInfo
+                {
+                    Position = new Position(2, 0)
+                },
+                new BoardStateInfo
+                {
+                    Position = new Position(2, 1)
+                }
+            };
+
+            var expectedMoves = new Position[]
+            {
+                new Position(0, 0),
+                new Position(0, 1),
+                new Position(1, 0),
+                new Position(2, 0),
+                new Position(2, 1)
+            };
+
+            gameBoard
+                .Setup(x => x.GetBoardStateInfo(It.IsAny<Position[]>()))
+                .Returns(boardStateInfos);
+
+            var result = king.GetMoves(gameBoard.Object, kingPosition);
             result.Should().BeEquivalentTo(expectedMoves);
         }
     }

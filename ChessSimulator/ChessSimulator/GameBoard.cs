@@ -66,30 +66,7 @@ namespace ChessSimulator
             }
 
             return result;
-        }
-
-        // this is used for the king move calculation, maybe it is smarter to move it there and only expose 
-        // a GetBoardStateInfo(Position position) which all pieces use.
-        public IEnumerable<BoardStateInfo> GetBoardStatesAround(Position point)
-        {
-            var result = new List<BoardStateInfo>();
-            int x = 0;
-            int y = 0;
-            for (int i = -1; i < 2; i++)
-            {
-                for (int j = -1; j < 2; j++)
-                {
-                    x = point.X + i;
-                    y = point.Y + j;
-                    // not the point and valid coordinates on the board
-                    if ((i != 0 || j != 0) && IsOnBoard(x, y))
-                    {
-                        result.Add(new BoardStateInfo { Position = new Position(x, y), State = GetBoardState(x, y) });
-                    }
-                }
-            }
-            return result;
-        }
+        }    
 
         private bool IsOnBoard(Position position)
         {
