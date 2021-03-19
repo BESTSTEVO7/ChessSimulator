@@ -8,6 +8,35 @@ namespace ChessSimulator
     {
         private readonly IPiece[,] board;
 
+        private static readonly IReadOnlyDictionary<Direction, Position> directionDeltas =
+            new Dictionary<Direction, Position>
+            {
+                {
+                    Direction.North, new Position(0, -1)
+                },
+                {
+                    Direction.East, new Position(0, -1)
+                },
+                {
+                    Direction.South, new Position(0, -1)
+                },
+                {
+                    Direction.West, new Position(0, -1)
+                },
+                {
+                    Direction.NorthEast, new Position(0, -1)
+                },
+                {
+                    Direction.NorthWest, new Position(0, -1)
+                },
+                {
+                    Direction.SouthEast, new Position(0, -1)
+                },
+                {
+                    Direction.SouthWest, new Position(0, -1)
+                }
+            };
+
         private GameBoard(IPiece[,] board)
         {
             this.board = board;
@@ -55,7 +84,7 @@ namespace ChessSimulator
 
         public BoardStateInfo GetBoardStateInfo(Position position)
         {
-            if (!IsOnBoard(position)) 
+            if (!IsOnBoard(position))
             {
                 return null;
             }
@@ -71,7 +100,7 @@ namespace ChessSimulator
         public IEnumerable<BoardStateInfo> GetBoardStateInfo(params Position[] positions)
         {
             var result = new List<BoardStateInfo>();
-            foreach (var position in positions) 
+            foreach (var position in positions)
             {
                 result.Add(GetBoardStateInfo(position));
             }
@@ -79,19 +108,18 @@ namespace ChessSimulator
             return result;
         }
 
-        public IEnumerable<BoardStateInfo> GetBoardStateInfoInDirection(Direction direction, Position[] positions)
+        public IEnumerable<BoardStateInfo> GetBoardStateInfoInDirection(Direction direction, Position position)
         {
-            Position northDelta = new Position(0, -1);
-            Position eastDelta = new Position(1, 0);
-            Position southDelta = new Position(0, 1);
-            Position westDelta = new Position(-1, 0);
+            var result = new List<BoardStateInfo>();
+            position += directionDeltas[direction];
 
-            Position northEastDelta = new Position(1, -1);
-            Position NorthWestDelta = new Position(-1, -1);
-            Position SouthEastDelta = new Position(1, 1);
-            Position SouthWestDelta = new Position(-1, 1);
+            while (IsOnBoard(position))
+            {
+                result.Add(GetBoardStateInfo(position));
+                position += directionDeltas[direction];
+            }
 
-            throw new NotImplementedException();
+            return result;
         }
     }
 }

@@ -11,5 +11,10 @@
             X = x;
             Y = y;
         }
+
+        public static Position operator +(Position firstPosition, Position secondPosition) 
+        {
+            return new Position(firstPosition.X + secondPosition.X, firstPosition.Y + secondPosition.Y);
+        }
     }
 }

@@ -9,7 +9,7 @@ namespace ChessSimulator
 
         public IEnumerable<BoardStateInfo> GetBoardStateInfo(params Position[] positions);
 
-        public IEnumerable<BoardStateInfo> GetBoardStateInfoInDirection(Direction direction, Position[] positions);
+        public IEnumerable<BoardStateInfo> GetBoardStateInfoInDirection(Direction direction, Position position);
 
         public void AddPiece(IPiece piece, Position position);
 
