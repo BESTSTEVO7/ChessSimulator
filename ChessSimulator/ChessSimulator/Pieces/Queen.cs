@@ -18,6 +18,7 @@ namespace ChessSimulator.Pieces
         public Position[] GetMoves(IGameBoard gameBoard, Position position)
         {
             IList<Position> result = new List<Position>();
+            // TODO group this and reuse for bishop and rook.
             var northPositions = gameBoard.GetBoardStateInfoInDirection(Direction.North, position);
             var eastPositions = gameBoard.GetBoardStateInfoInDirection(Direction.East, position);
             var southPositions = gameBoard.GetBoardStateInfoInDirection(Direction.South, position);

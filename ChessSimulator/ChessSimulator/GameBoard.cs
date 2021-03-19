@@ -49,7 +49,9 @@ namespace ChessSimulator
 
         private bool IsOnBoard(Position position)
         {
-            return -1 < position.X && position.X < board.Length && -1 < position.Y || -1 < position.Y && position.Y < board.GetLength(1);
+            return 
+                -1 < position.X && position.X < board.Length && -1 < position.Y ||
+                -1 < position.Y && position.Y < board.GetLength(1);
         }
 
         private Colour? GetBoardState(Position position)
