@@ -2,7 +2,7 @@
 
 namespace ChessSimulator.Pieces
 {
-    class Knight : IPiece
+    public class Knight : IPiece
     {
         public string Name { get => PieceNames.Knight; }
 
