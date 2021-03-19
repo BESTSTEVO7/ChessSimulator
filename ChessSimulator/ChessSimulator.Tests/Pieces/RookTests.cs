@@ -140,8 +140,8 @@ namespace ChessSimulator.Tests.Pieces
                 .Returns(
                     new List<BoardStateInfo>
                     {
-                        new BoardStateInfo { Position = new Position(0, 2), State = Colour.Black } ,
-                        new BoardStateInfo { Position = new Position(1, 2) } ,
+                        new BoardStateInfo { Position = new Position(1, 2), State = Colour.Black } ,
+                        new BoardStateInfo { Position = new Position(0, 2) } ,
                     });
 
             gameBoard.Setup(x => x.GetBoardStateInfoInDirection(It.Is<Direction>(x => x == Direction.East), It.Is<Position>(x => x == rookPosition)))
@@ -170,7 +170,7 @@ namespace ChessSimulator.Tests.Pieces
 
             var expectedMoves = new Position[]
             {
-                new Position(0,2),
+                new Position(1,2),
                 new Position(3,2),
                 new Position(2,3),
                 new Position(1,2),
@@ -190,6 +190,52 @@ namespace ChessSimulator.Tests.Pieces
         {
             Rook rook = new Rook(Colour.White);
             Position rookPosition = new Position(2, 2);
+
+            gameBoard.Setup(x => x.GetBoardStateInfoInDirection(It.Is<Direction>(x => x == Direction.North), It.Is<Position>(x => x == rookPosition)))
+                .Returns(
+                    new List<BoardStateInfo>
+                    {
+                        new BoardStateInfo { Position = new Position(1, 2) } ,
+                        new BoardStateInfo { Position = new Position(0, 2), State = Colour.White } ,
+                    });
+
+            gameBoard.Setup(x => x.GetBoardStateInfoInDirection(It.Is<Direction>(x => x == Direction.East), It.Is<Position>(x => x == rookPosition)))
+                .Returns(
+                    new List<BoardStateInfo>
+                    {
+                        new BoardStateInfo { Position = new Position(3, 2) } ,
+                        new BoardStateInfo { Position = new Position(4, 2) } ,
+                    });
+
+            gameBoard.Setup(x => x.GetBoardStateInfoInDirection(It.Is<Direction>(x => x == Direction.South), It.Is<Position>(x => x == rookPosition)))
+                .Returns(
+                    new List<BoardStateInfo>
+                    {
+                        new BoardStateInfo { Position = new Position(2, 3) } ,
+                        new BoardStateInfo { Position = new Position(2, 4) } ,
+                    });
+
+            gameBoard.Setup(x => x.GetBoardStateInfoInDirection(It.Is<Direction>(x => x == Direction.West), It.Is<Position>(x => x == rookPosition)))
+                .Returns(
+                    new List<BoardStateInfo>
+                    {
+                        new BoardStateInfo { Position = new Position(1, 2) } ,
+                        new BoardStateInfo { Position = new Position(0, 2) } ,
+                    });
+
+            var expectedMoves = new Position[]
+            {
+                new Position(1,2),
+                new Position(3,2),
+                new Position(4,2),
+                new Position(2,3),
+                new Position(2,4),
+                new Position(1,2),
+                new Position(0,2),
+            };
+
+            var result = rook.GetMoves(gameBoard.Object, rookPosition);
+            result.Should().BeEquivalentTo(expectedMoves);
         }
 
         //| | | | | |
@@ -202,6 +248,52 @@ namespace ChessSimulator.Tests.Pieces
         {
             Rook rook = new Rook(Colour.White);
             Position rookPosition = new Position(2, 2);
+
+            gameBoard.Setup(x => x.GetBoardStateInfoInDirection(It.Is<Direction>(x => x == Direction.North), It.Is<Position>(x => x == rookPosition)))
+                .Returns(
+                    new List<BoardStateInfo>
+                    {
+                        new BoardStateInfo { Position = new Position(1, 2) } ,
+                        new BoardStateInfo { Position = new Position(0, 2) } ,
+                    });
+
+            gameBoard.Setup(x => x.GetBoardStateInfoInDirection(It.Is<Direction>(x => x == Direction.East), It.Is<Position>(x => x == rookPosition)))
+                .Returns(
+                    new List<BoardStateInfo>
+                    {
+                        new BoardStateInfo { Position = new Position(3, 2) } ,
+                        new BoardStateInfo { Position = new Position(4, 2) } ,
+                    });
+
+            gameBoard.Setup(x => x.GetBoardStateInfoInDirection(It.Is<Direction>(x => x == Direction.South), It.Is<Position>(x => x == rookPosition)))
+                .Returns(
+                    new List<BoardStateInfo>
+                    {
+                        new BoardStateInfo { Position = new Position(2, 3) } ,
+                        new BoardStateInfo { Position = new Position(2, 4) } ,
+                    });
+
+            gameBoard.Setup(x => x.GetBoardStateInfoInDirection(It.Is<Direction>(x => x == Direction.West), It.Is<Position>(x => x == rookPosition)))
+                .Returns(
+                    new List<BoardStateInfo>
+                    {
+                        new BoardStateInfo { Position = new Position(1, 2) } ,
+                        new BoardStateInfo { Position = new Position(0, 2), State = Colour.White } ,
+                    });
+
+            var expectedMoves = new Position[]
+            {
+                new Position(1,2),
+                new Position(0,2),
+                new Position(3,2),
+                new Position(4,2),
+                new Position(2,3),
+                new Position(2,4),
+                new Position(1,2),
+            };
+
+            var result = rook.GetMoves(gameBoard.Object, rookPosition);
+            result.Should().BeEquivalentTo(expectedMoves);
         }
 
         //| | | | | |
@@ -214,6 +306,52 @@ namespace ChessSimulator.Tests.Pieces
         {
             Rook rook = new Rook(Colour.White);
             Position rookPosition = new Position(2, 2);
+
+            gameBoard.Setup(x => x.GetBoardStateInfoInDirection(It.Is<Direction>(x => x == Direction.North), It.Is<Position>(x => x == rookPosition)))
+                .Returns(
+                    new List<BoardStateInfo>
+                    {
+                        new BoardStateInfo { Position = new Position(1, 2) } ,
+                        new BoardStateInfo { Position = new Position(0, 2) } ,
+                    });
+
+            gameBoard.Setup(x => x.GetBoardStateInfoInDirection(It.Is<Direction>(x => x == Direction.East), It.Is<Position>(x => x == rookPosition)))
+                .Returns(
+                    new List<BoardStateInfo>
+                    {
+                        new BoardStateInfo { Position = new Position(3, 2) } ,
+                        new BoardStateInfo { Position = new Position(4, 2), State = Colour.White } ,
+                    });
+
+            gameBoard.Setup(x => x.GetBoardStateInfoInDirection(It.Is<Direction>(x => x == Direction.South), It.Is<Position>(x => x == rookPosition)))
+                .Returns(
+                    new List<BoardStateInfo>
+                    {
+                        new BoardStateInfo { Position = new Position(2, 3) } ,
+                        new BoardStateInfo { Position = new Position(2, 4) } ,
+                    });
+
+            gameBoard.Setup(x => x.GetBoardStateInfoInDirection(It.Is<Direction>(x => x == Direction.West), It.Is<Position>(x => x == rookPosition)))
+                .Returns(
+                    new List<BoardStateInfo>
+                    {
+                        new BoardStateInfo { Position = new Position(1, 2) } ,
+                        new BoardStateInfo { Position = new Position(0, 2) } ,
+                    });
+
+            var expectedMoves = new Position[]
+            {
+                new Position(1,2),
+                new Position(0,2),
+                new Position(3,2),
+                new Position(2,3),
+                new Position(2,4),
+                new Position(1,2),
+                new Position(0,2),
+            };
+
+            var result = rook.GetMoves(gameBoard.Object, rookPosition);
+            result.Should().BeEquivalentTo(expectedMoves);
         }
 
         //| | | | | |
@@ -226,6 +364,52 @@ namespace ChessSimulator.Tests.Pieces
         {
             Rook rook = new Rook(Colour.White);
             Position rookPosition = new Position(2, 2);
+
+            gameBoard.Setup(x => x.GetBoardStateInfoInDirection(It.Is<Direction>(x => x == Direction.North), It.Is<Position>(x => x == rookPosition)))
+                .Returns(
+                    new List<BoardStateInfo>
+                    {
+                        new BoardStateInfo { Position = new Position(1, 2) } ,
+                        new BoardStateInfo { Position = new Position(0, 2) } ,
+                    });
+
+            gameBoard.Setup(x => x.GetBoardStateInfoInDirection(It.Is<Direction>(x => x == Direction.East), It.Is<Position>(x => x == rookPosition)))
+                .Returns(
+                    new List<BoardStateInfo>
+                    {
+                        new BoardStateInfo { Position = new Position(3, 2) } ,
+                        new BoardStateInfo { Position = new Position(4, 2) } ,
+                    });
+
+            gameBoard.Setup(x => x.GetBoardStateInfoInDirection(It.Is<Direction>(x => x == Direction.South), It.Is<Position>(x => x == rookPosition)))
+                .Returns(
+                    new List<BoardStateInfo>
+                    {
+                        new BoardStateInfo { Position = new Position(2, 3) } ,
+                        new BoardStateInfo { Position = new Position(2, 4), State = Colour.White } ,
+                    });
+
+            gameBoard.Setup(x => x.GetBoardStateInfoInDirection(It.Is<Direction>(x => x == Direction.West), It.Is<Position>(x => x == rookPosition)))
+                .Returns(
+                    new List<BoardStateInfo>
+                    {
+                        new BoardStateInfo { Position = new Position(1, 2) } ,
+                        new BoardStateInfo { Position = new Position(0, 2) } ,
+                    });
+
+            var expectedMoves = new Position[]
+            {
+                new Position(1,2),
+                new Position(0,2),
+                new Position(3,2),
+                new Position(4,2),
+                new Position(2,3),
+                new Position(1,2),
+                new Position(0,2),
+            };
+
+            var result = rook.GetMoves(gameBoard.Object, rookPosition);
+            result.Should().BeEquivalentTo(expectedMoves);
         }
     }
 }
