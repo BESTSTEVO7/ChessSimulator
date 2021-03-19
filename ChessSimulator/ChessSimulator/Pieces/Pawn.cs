@@ -19,11 +19,11 @@ namespace ChessSimulator.Pieces
         public Position[] GetMoves(IGameBoard gameBoard, Position position)
         {
             var result = new List<Position>();
-            var aheadState = direction == Direction.Forward
+            var aheadState = direction == Direction.North
                 ? gameBoard.GetBoardStateInfo(new Position(position.X - 1, position.Y))
                 : gameBoard.GetBoardStateInfo(new Position(position.X + 1, position.Y));
 
-            var diagonalStates = direction == Direction.Forward
+            var diagonalStates = direction == Direction.North
                 ? gameBoard.GetBoardStateInfo(new Position(position.X - 1, position.Y + 1), new Position(position.X + 1, position.Y + 1))
                 : gameBoard.GetBoardStateInfo(new Position(position.X - 1, position.Y - 1), new Position(position.X + 1, position.Y - 1));
 

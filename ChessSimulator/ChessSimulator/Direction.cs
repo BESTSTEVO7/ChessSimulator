@@ -2,7 +2,13 @@
 {
     public enum Direction
     {
-        Forward,
-        Backward
+        North,
+        East,
+        South,
+        West,
+        NorthEast,
+        NorthWest,
+        SouthEast,
+        SouthWest
     }
 }

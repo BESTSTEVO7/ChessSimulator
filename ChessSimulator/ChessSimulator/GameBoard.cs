@@ -18,6 +18,16 @@ namespace ChessSimulator
             set { board[position.X, position.Y] = value; }
         }
 
+        private bool IsOnBoard(Position position)
+        {
+            return -1 < position.X && position.X < board.Length && -1 < position.Y || -1 < position.Y && position.Y < board.GetLength(1);
+        }
+
+        private Colour? GetBoardState(Position position)
+        {
+            return board[position.X, position.Y]?.Colour;
+        }
+
         // TODO rethink this and check if Builder pattern would be more appropriate
         // something like builder.AddPiece(...).AddPiece(...).AddPiece(...).BuildBoard();
         public static GameBoard GenerateBoard(int rows, int columns, IEnumerable<(IPiece, Position)> pieces)
@@ -66,16 +76,11 @@ namespace ChessSimulator
             }
 
             return result;
-        }    
-
-        private bool IsOnBoard(Position position)
-        {
-            return -1 < position.X && position.X < board.Length && -1 < position.Y || -1 < position.Y && position.Y < board.GetLength(1);
         }
 
-        private Colour? GetBoardState(Position position)
+        public IEnumerable<BoardStateInfo> GetBoardStateInfoInDirection(Direction direction, Position[] positions)
         {
-            return board[position.X, position.Y]?.Colour;
+            throw new System.NotImplementedException();
         }
     }
 }

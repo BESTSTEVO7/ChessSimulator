@@ -22,7 +22,7 @@ namespace ChessSimulator.Tests.Pieces
         [Test]
         public void GetMoves_NoFront_ForwardPossible()
         {
-            Pawn pawn = new Pawn(Colour.White, Direction.Forward);
+            Pawn pawn = new Pawn(Colour.White, Direction.North);
             Position pawnPosition = new Position(1, 1);
 
             var aheadBoardStateInfo = new BoardStateInfo
@@ -64,7 +64,7 @@ namespace ChessSimulator.Tests.Pieces
         [Test]
         public void GetMoves_EnemyInFront_NoMovePossible()
         {
-            Pawn pawn = new Pawn(Colour.White, Direction.Forward);
+            Pawn pawn = new Pawn(Colour.White, Direction.North);
             Position pawnPosition = new Position(1, 1);
 
             var aheadBoardStateInfo = new BoardStateInfo
@@ -94,7 +94,7 @@ namespace ChessSimulator.Tests.Pieces
         [Test]
         public void GetMoves_AllyInFront_NoMovePossible()
         {
-            Pawn pawn = new Pawn(Colour.White, Direction.Forward);
+            Pawn pawn = new Pawn(Colour.White, Direction.North);
             Position pawnPosition = new Position(1, 1);
 
             var aheadBoardStateInfo = new BoardStateInfo
@@ -124,7 +124,7 @@ namespace ChessSimulator.Tests.Pieces
         [Test]
         public void GetMoves_AllyInFrontTwoEnemiesDiagonal_DiagonalsMovePossible()
         {
-            Pawn pawn = new Pawn(Colour.White, Direction.Forward);
+            Pawn pawn = new Pawn(Colour.White, Direction.North);
             Position pawnPosition = new Position(1, 1);
 
             var aheadBoardStateInfo = new BoardStateInfo
@@ -170,7 +170,7 @@ namespace ChessSimulator.Tests.Pieces
         [Test]
         public void GetMoves_EnemiesInFront_DiagonalsMovePossible()
         {
-            Pawn pawn = new Pawn(Colour.White, Direction.Forward);
+            Pawn pawn = new Pawn(Colour.White, Direction.North);
             Position pawnPosition = new Position(1, 1);
 
             var aheadBoardStateInfo = new BoardStateInfo
@@ -216,7 +216,7 @@ namespace ChessSimulator.Tests.Pieces
         [Test]
         public void GetMoves_EnemyDiagonal_DiagonalMovePossible()
         {
-            Pawn pawn = new Pawn(Colour.White, Direction.Forward);
+            Pawn pawn = new Pawn(Colour.White, Direction.North);
             Position pawnPosition = new Position(1, 1);
 
             var aheadBoardStateInfo = new BoardStateInfo
@@ -256,7 +256,7 @@ namespace ChessSimulator.Tests.Pieces
         [Test]
         public void GetMoves_AllyInFrontEnemyDiagonal_DiagonalMovePossible()
         {
-            Pawn pawn = new Pawn(Colour.White, Direction.Forward);
+            Pawn pawn = new Pawn(Colour.White, Direction.North);
             Position pawnPosition = new Position(1, 1);
 
             var aheadBoardStateInfo = new BoardStateInfo
