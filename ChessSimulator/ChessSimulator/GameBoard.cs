@@ -1,4 +1,5 @@
 ﻿using ChessSimulator.Pieces;
+using System;
 using System.Collections.Generic;
 
 namespace ChessSimulator
@@ -80,7 +81,17 @@ namespace ChessSimulator
 
         public IEnumerable<BoardStateInfo> GetBoardStateInfoInDirection(Direction direction, Position[] positions)
         {
-            throw new System.NotImplementedException();
+            Position northDelta = new Position(0, -1);
+            Position eastDelta = new Position(1, 0);
+            Position southDelta = new Position(0, 1);
+            Position westDelta = new Position(-1, 0);
+
+            Position northEastDelta = new Position(1, -1);
+            Position NorthWestDelta = new Position(-1, -1);
+            Position SouthEastDelta = new Position(1, 1);
+            Position SouthWestDelta = new Position(-1, 1);
+
+            throw new NotImplementedException();
         }
     }
 }
