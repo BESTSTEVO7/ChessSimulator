@@ -1,5 +1,6 @@
 ﻿namespace ChessSimulator
 {
+    // TODO think how to handle equals and gethashcode
     public struct Position
     {
         public int X { get; set; }
