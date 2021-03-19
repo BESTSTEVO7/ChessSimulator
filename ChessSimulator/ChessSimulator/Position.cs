@@ -16,5 +16,15 @@
         {
             return new Position(firstPosition.X + secondPosition.X, firstPosition.Y + secondPosition.Y);
         }
+
+        public static bool operator ==(Position firstPosition, Position secondPosition)
+        {
+            return firstPosition.X == secondPosition.X && firstPosition.Y == secondPosition.Y;
+        }
+
+        public static bool operator !=(Position firstPosition, Position secondPosition)
+        {
+            return firstPosition.X != secondPosition.X || firstPosition.Y != secondPosition.Y;
+        }
     }
 }
