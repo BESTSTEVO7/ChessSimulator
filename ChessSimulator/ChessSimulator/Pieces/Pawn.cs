@@ -27,7 +27,7 @@ namespace ChessSimulator.Pieces
                 ? gameBoard.GetBoardStateInfo(new Position(position.X - 1, position.Y + 1), new Position(position.X + 1, position.Y + 1))
                 : gameBoard.GetBoardStateInfo(new Position(position.X - 1, position.Y - 1), new Position(position.X + 1, position.Y - 1));
 
-            if (aheadState.State is null)
+            if (aheadState is not null && aheadState.State is null)
             {
                 result.Add(aheadState.Position);
             }

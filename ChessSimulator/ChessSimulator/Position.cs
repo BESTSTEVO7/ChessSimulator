@@ -1,11 +1,13 @@
-﻿namespace ChessSimulator
+﻿using System;
+
+namespace ChessSimulator
 {
     // TODO think how to handle equals and gethashcode
-    public struct Position
+    public readonly struct Position : IEquatable<Position>
     {
-        public int X { get; set; }
+        public int X { get; }
 
-        public int Y { get; set; }
+        public int Y { get; }
 
         public Position(int x, int y)
         {
@@ -20,22 +22,27 @@
 
         public static bool operator ==(Position firstPosition, Position secondPosition)
         {
-            return firstPosition.X == secondPosition.X && firstPosition.Y == secondPosition.Y;
+            return firstPosition.Equals(secondPosition);
         }
 
         public static bool operator !=(Position firstPosition, Position secondPosition)
         {
-            return firstPosition.X != secondPosition.X || firstPosition.Y != secondPosition.Y;
+            return !firstPosition.Equals(secondPosition);
         }
 
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
-            return (Position)obj == this;
+            return obj is not null && Equals((Position)obj);
         }
 
         public override int GetHashCode()
         {
-            throw new System.NotImplementedException();
+            return HashCode.Combine(X, Y);
+        }
+
+        public bool Equals(Position other)
+        {
+            return this.X == other.X && this.Y == other.Y;
         }
     }
 }

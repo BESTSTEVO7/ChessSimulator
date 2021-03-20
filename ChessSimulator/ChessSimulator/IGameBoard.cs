@@ -5,7 +5,7 @@ namespace ChessSimulator
 {
     public interface IGameBoard
     {
-        public BoardStateInfo GetBoardStateInfo(Position point);
+        public BoardStateInfo? GetBoardStateInfo(Position point);
 
         public IEnumerable<BoardStateInfo> GetBoardStateInfo(params Position[] positions);
 
