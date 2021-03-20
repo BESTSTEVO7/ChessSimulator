@@ -54,11 +54,6 @@ namespace ChessSimulator
                 -1 < position.Y && position.Y < board.GetLength(1);
         }
 
-        private Colour? GetBoardState(Position position)
-        {
-            return board[position.X, position.Y]?.Colour;
-        }
-
         // TODO rethink this and check if Builder pattern would be more appropriate
         // something like builder.AddPiece(...).AddPiece(...).AddPiece(...).BuildBoard();
         public static GameBoard GenerateBoard(int rows, int columns, IEnumerable<(IPiece, Position)> pieces)
