@@ -27,5 +27,15 @@
         {
             return firstPosition.X != secondPosition.X || firstPosition.Y != secondPosition.Y;
         }
+
+        public override bool Equals(object obj)
+        {
+            return (Position)obj == this;
+        }
+
+        public override int GetHashCode()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }
