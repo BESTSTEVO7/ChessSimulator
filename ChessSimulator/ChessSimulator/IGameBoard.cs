@@ -1,18 +1,17 @@
-﻿using ChessSimulator.Pieces;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace ChessSimulator
 {
     public interface IGameBoard
     {
-        public BoardStateInfo? GetBoardStateInfo(Position point);
+        public bool Move(Position from, Position to);
+
+        public IEnumerable<Position> GetMoves(Position position);
+
+        public BoardStateInfo? GetBoardStateInfo(Position position);
 
         public IEnumerable<BoardStateInfo> GetBoardStateInfo(params Position[] positions);
 
         public IEnumerable<BoardStateInfo> GetBoardStateInfoInDirection(Direction direction, Position position);
-
-        public void AddPiece(IPiece piece, Position position);
-
-        public void RemovePiece(Position position);
     }
 }
