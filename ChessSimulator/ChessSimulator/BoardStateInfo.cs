@@ -5,5 +5,7 @@
         public Position Position { get; set; }
 
         public Colour? State { get; set; }
+
+        public string? Representation;
     }
 }

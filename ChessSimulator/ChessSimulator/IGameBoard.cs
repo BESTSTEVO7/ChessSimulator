@@ -8,6 +8,8 @@ namespace ChessSimulator
 
         public IEnumerable<Position> GetMoves(Position position);
 
+        public IEnumerable<BoardStateInfo> GetBoard();
+
         public BoardStateInfo? GetBoardStateInfo(Position position);
 
         public IEnumerable<BoardStateInfo> GetBoardStateInfo(params Position[] positions);
