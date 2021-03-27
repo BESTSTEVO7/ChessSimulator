@@ -38,6 +38,9 @@ namespace ChessSimulator
             var possibleMoves = this[from]?.GetMoves(this, from);
             if (possibleMoves is not null && possibleMoves.Contains(to)) 
             {
+                var piece = this[from];
+                this[from] = null;
+                this[to] = piece;
                 return true;
             }
 
@@ -76,8 +79,8 @@ namespace ChessSimulator
                         if (piece is not null) 
                         {
                             boardStateInfo.Representation = piece.Name;
-                            yield return boardStateInfo;
-                        }    
+                            
+                        }    yield return boardStateInfo;
                     }
                 }
             }

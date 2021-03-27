@@ -1,6 +1,8 @@
-﻿using System.Linq;
+﻿using ChessSimulator.Extensions;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace ChessSimulator.GUI
 {
@@ -10,6 +12,8 @@ namespace ChessSimulator.GUI
     public partial class MainWindow : Window
     {
         private IGameBoard gameBoard;
+        private Position marked;
+        private ClickState clickState;
 
         public MainWindow()
         {
@@ -28,6 +32,42 @@ namespace ChessSimulator.GUI
                 currentButton.Content = boardStateInfo.Representation;
                 //boardStateInfo[0]
             }
+        }
+
+        private Button GetButton(Position position)
+        {
+            return (Button)field.Children.Cast<UIElement>()
+                        .First(e => Grid.GetRow(e) == position.Y + 1 && Grid.GetColumn(e) == position.X + 1);
+        }
+
+        private void Move(Position position) 
+        {
+            if (clickState is null)
+            {
+
+                clickState = new ClickState { ClickPosition = position };
+                var moves = gameBoard.GetMoves(position).ToList();
+                foreach (var move in moves)
+                {
+                  //  GetButton(move).Background = (SolidColorBrush)(new BrushConverter().ConvertFrom("#ffaacc"));
+                }
+            }
+            else
+            {
+                gameBoard.Move(clickState.ClickPosition, position);
+                clickState = null;
+                RefreshBoard();
+            }
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            Move((sender as Button).Name.Parse());
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            Move((sender as Button).Name.Parse());
         }
     }
 }

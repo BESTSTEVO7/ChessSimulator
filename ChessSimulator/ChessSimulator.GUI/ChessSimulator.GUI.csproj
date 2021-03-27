@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ChessSimulator.Extensions\ChessSimulator.Extensions.csproj" />
     <ProjectReference Include="..\ChessSimulator\ChessSimulator.csproj" />
   </ItemGroup>
 

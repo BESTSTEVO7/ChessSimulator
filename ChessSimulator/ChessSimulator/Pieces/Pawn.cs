@@ -19,13 +19,15 @@ namespace ChessSimulator.Pieces
         public Position[] GetMoves(IGameBoard gameBoard, Position position)
         {
             var result = new List<Position>();
+
+            // TODO for aheadState and diagonalState check if is Onboard, otherwise i check -1 coords for example
             var aheadState = direction == Direction.North
-                ? gameBoard.GetBoardStateInfo(new Position(position.X - 1, position.Y))
-                : gameBoard.GetBoardStateInfo(new Position(position.X + 1, position.Y));
+                ? gameBoard.GetBoardStateInfo(new Position(position.X, position.Y - 1))
+                : gameBoard.GetBoardStateInfo(new Position(position.X, position.Y + 1));
 
             var diagonalStates = direction == Direction.North
-                ? gameBoard.GetBoardStateInfo(new Position(position.X - 1, position.Y + 1), new Position(position.X + 1, position.Y + 1))
-                : gameBoard.GetBoardStateInfo(new Position(position.X - 1, position.Y - 1), new Position(position.X + 1, position.Y - 1));
+                ? gameBoard.GetBoardStateInfo(new Position(position.X - 1, position.Y - 1), new Position(position.X + 1, position.Y - 1))
+                : gameBoard.GetBoardStateInfo(new Position(position.X - 1, position.Y + 1), new Position(position.X + 1, position.Y + 1));
 
             if (aheadState is not null && aheadState.State is null)
             {
