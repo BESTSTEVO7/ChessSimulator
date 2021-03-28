@@ -149,23 +149,23 @@ namespace ChessSimulator
             gameBoard.AddPiece(new Pawn(Colour.Black, Direction.East), new Position(6, 1));
             gameBoard.AddPiece(new Pawn(Colour.Black, Direction.East), new Position(7, 1));
 
-            gameBoard.AddPiece(new Rook(Colour.White), new Position(0, 6));
-            gameBoard.AddPiece(new Knight(Colour.White), new Position(1, 6));
-            gameBoard.AddPiece(new Bishop(Colour.White), new Position(2, 6));
-            gameBoard.AddPiece(new Queen(Colour.White), new Position(3, 6));
-            gameBoard.AddPiece(new King(Colour.White), new Position(4, 6));
-            gameBoard.AddPiece(new Bishop(Colour.White), new Position(5, 6));
-            gameBoard.AddPiece(new Knight(Colour.White), new Position(6, 6));
-            gameBoard.AddPiece(new Rook(Colour.White), new Position(7, 6));
+            gameBoard.AddPiece(new Rook(Colour.White), new Position(0, 7));
+            gameBoard.AddPiece(new Knight(Colour.White), new Position(1, 7));
+            gameBoard.AddPiece(new Bishop(Colour.White), new Position(2, 7));
+            gameBoard.AddPiece(new Queen(Colour.White), new Position(3, 7));
+            gameBoard.AddPiece(new King(Colour.White), new Position(4, 7));
+            gameBoard.AddPiece(new Bishop(Colour.White), new Position(5, 7));
+            gameBoard.AddPiece(new Knight(Colour.White), new Position(6, 7));
+            gameBoard.AddPiece(new Rook(Colour.White), new Position(7, 7));
 
-            gameBoard.AddPiece(new Pawn(Colour.White, Direction.North), new Position(0, 7));
-            gameBoard.AddPiece(new Pawn(Colour.White, Direction.North), new Position(1, 7));
-            gameBoard.AddPiece(new Pawn(Colour.White, Direction.North), new Position(2, 7));
-            gameBoard.AddPiece(new Pawn(Colour.White, Direction.North), new Position(3, 7));
-            gameBoard.AddPiece(new Pawn(Colour.White, Direction.North), new Position(4, 7));
-            gameBoard.AddPiece(new Pawn(Colour.White, Direction.North), new Position(5, 7));
-            gameBoard.AddPiece(new Pawn(Colour.White, Direction.North), new Position(6, 7));
-            gameBoard.AddPiece(new Pawn(Colour.White, Direction.North), new Position(7, 7));
+            gameBoard.AddPiece(new Pawn(Colour.White, Direction.North), new Position(0, 6));
+            gameBoard.AddPiece(new Pawn(Colour.White, Direction.North), new Position(1, 6));
+            gameBoard.AddPiece(new Pawn(Colour.White, Direction.North), new Position(2, 6));
+            gameBoard.AddPiece(new Pawn(Colour.White, Direction.North), new Position(3, 6));
+            gameBoard.AddPiece(new Pawn(Colour.White, Direction.North), new Position(4, 6));
+            gameBoard.AddPiece(new Pawn(Colour.White, Direction.North), new Position(5, 6));
+            gameBoard.AddPiece(new Pawn(Colour.White, Direction.North), new Position(6, 6));
+            gameBoard.AddPiece(new Pawn(Colour.White, Direction.North), new Position(7, 6));
 
             return gameBoard;
         }

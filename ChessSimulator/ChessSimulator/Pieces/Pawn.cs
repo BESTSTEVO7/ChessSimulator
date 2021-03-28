@@ -16,6 +16,7 @@ namespace ChessSimulator.Pieces
             this.direction = direction;
         }
 
+        // TODO first move can be 2 fields
         public Position[] GetMoves(IGameBoard gameBoard, Position position)
         {
             var result = new List<Position>();
