@@ -34,9 +34,13 @@ namespace ChessSimulator.GUI
                 var currentButton = ((Button)field.Children.Cast<UIElement>()
                     .First(e => Grid.GetRow(e) == boardStateInfo.Position.Y + 1 && Grid.GetColumn(e) == boardStateInfo.Position.X + 1));
                 //bla.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom("#ffaacc"));
-                if (boardStateInfo.State == Colour.White) 
+                if (boardStateInfo.State == Colour.White)
                 {
                     currentButton.Foreground = player1Brush;
+                }
+                else if (boardStateInfo.State == Colour.Black)
+                {
+                    currentButton.Foreground = player2Brush;
                 }
                 currentButton.Content = boardStateInfo.Representation;
                 //var brush = new ImageBrush();

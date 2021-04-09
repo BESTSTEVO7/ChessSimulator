@@ -22,11 +22,13 @@ namespace ChessSimulator.Pieces
             return boardStateInfos.Where(x => !x.State.HasValue || x.State != Colour).Select(x => x.Position).ToArray();
         }
 
-        public IEnumerable<Position> GetPointsArround(Position position) 
+        public IEnumerable<Position> GetPointsArround(Position position)
         {
-            var result = new List<Position>();
             int x = 0;
             int y = 0;
+
+            var result = new List<Position>();
+
             for (int i = -1; i < 2; i++)
             {
                 for (int j = -1; j < 2; j++)
