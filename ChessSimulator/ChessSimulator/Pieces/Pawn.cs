@@ -18,7 +18,11 @@ namespace ChessSimulator.Pieces
             this.direction = direction;
         }
 
-        // TODO first move can be 2 fields
+        private static bool IsFieldInFrontFree(BoardStateInfo? boardStateInfo)
+        {
+            return boardStateInfo is not null && boardStateInfo.State is null;
+        }
+
         public Position[] GetMoves(IGameBoard gameBoard, Position position)
         {
             var result = new List<Position>();
@@ -28,14 +32,17 @@ namespace ChessSimulator.Pieces
                 : gameBoard.GetBoardStateInfo(new Position(position.X, position.Y + 1));
 
             var diagonalStates = direction == Direction.North
-                ? gameBoard.GetBoardStateInfo(new Position(position.X - 1, position.Y - 1), new Position(position.X + 1, position.Y - 1))
-                : gameBoard.GetBoardStateInfo(new Position(position.X - 1, position.Y + 1), new Position(position.X + 1, position.Y + 1));
+                ? gameBoard.GetBoardStateInfo(
+                    new Position(position.X - 1, position.Y - 1), 
+                    new Position(position.X + 1, position.Y - 1))
+                : gameBoard.GetBoardStateInfo(
+                    new Position(position.X - 1, position.Y + 1), 
+                    new Position(position.X + 1, position.Y + 1));
 
-            // TODO I use this predicate logic on multiple places, move this to extension class e.g.
-            if (aheadState is not null && aheadState.State is null)
+            if (IsFieldInFrontFree(aheadState))
             {
-                result.Add(aheadState.Position);
-                
+                result.Add(aheadState!.Position);
+
                 // The first move on a pawn can be two steps forwards.
                 if (!HasMoved)
                 {
@@ -43,14 +50,14 @@ namespace ChessSimulator.Pieces
                     ? gameBoard.GetBoardStateInfo(new Position(position.X, position.Y - 2))
                     : gameBoard.GetBoardStateInfo(new Position(position.X, position.Y + 2));
 
-                    if (farAheadState is not null && farAheadState.State is null) 
+                    if (IsFieldInFrontFree(farAheadState))
                     {
-                        result.Add(farAheadState.Position);
+                        result.Add(farAheadState!.Position);
                     }
                 }
             }
 
-            foreach (var boardStateInfo in diagonalStates) 
+            foreach (var boardStateInfo in diagonalStates)
             {
                 if (boardStateInfo.State.HasValue && boardStateInfo.State.Value != Colour)
                 {
