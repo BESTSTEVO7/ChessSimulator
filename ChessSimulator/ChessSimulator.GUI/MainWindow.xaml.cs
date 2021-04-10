@@ -1,10 +1,8 @@
 ﻿using ChessSimulator.Extensions;
-using System;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
 
 namespace ChessSimulator.GUI
 {
@@ -31,9 +29,8 @@ namespace ChessSimulator.GUI
         {
             foreach (var boardStateInfo in gameBoard.GetBoard())
             {
-                var currentButton = ((Button)field.Children.Cast<UIElement>()
-                    .First(e => Grid.GetRow(e) == boardStateInfo.Position.Y + 1 && Grid.GetColumn(e) == boardStateInfo.Position.X + 1));
-                //bla.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom("#ffaacc"));
+                var currentButton = GetButton(boardStateInfo.Position);
+
                 if (boardStateInfo.State == Colour.White)
                 {
                     currentButton.Foreground = player1Brush;
@@ -42,22 +39,21 @@ namespace ChessSimulator.GUI
                 {
                     currentButton.Foreground = player2Brush;
                 }
+
                 currentButton.Content = boardStateInfo.Representation;
-                //var brush = new ImageBrush();
-                //brush.ImageSource = new BitmapImage(new Uri(@"C:\Users\stefa\Desktop\knight.png"));
-                //currentButton.Background = brush;
-                
-                //boardStateInfo[0]
             }
         }
 
         private Button GetButton(Position position)
         {
             return (Button)field.Children.Cast<UIElement>()
-                .First(e => Grid.GetRow(e) == position.Y + 1 && Grid.GetColumn(e) == position.X + 1);
+                .First(element => 
+                    Grid.GetRow(element) == position.Y + 1 
+                    && 
+                    Grid.GetColumn(element) == position.X + 1);
         }
 
-        private void Move(Position position) 
+        private void Move(Position position)
         {
             if (clickState is null)
             {
@@ -65,7 +61,7 @@ namespace ChessSimulator.GUI
                 var moves = gameBoard.GetMoves(position).ToList();
                 foreach (var move in moves)
                 {
-                  //  GetButton(move).Background = (SolidColorBrush)(new BrushConverter().ConvertFrom("#ffaacc"));
+                    // TODO make possible moves visible on the board.
                 }
             }
             else
@@ -77,11 +73,6 @@ namespace ChessSimulator.GUI
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            Move((sender as Button).Name.Parse());
-        }
-
-        private void Button_Click_1(object sender, RoutedEventArgs e)
         {
             Move((sender as Button).Name.Parse());
         }
