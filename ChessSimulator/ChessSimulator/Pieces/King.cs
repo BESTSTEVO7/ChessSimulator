@@ -3,8 +3,10 @@ using System.Linq;
 
 namespace ChessSimulator.Pieces
 {
-    public class King : IPiece
+    public class King : IPiece, IMoveInfo
     {
+        private bool HasMoved;
+
         public string Name { get => PieceNames.King; }
 
         public Colour Colour { get; }
@@ -40,6 +42,11 @@ namespace ChessSimulator.Pieces
             }
 
             return result;
+        }
+
+        public void Move()
+        {
+            HasMoved = true;
         }
     }
 }
