@@ -5,7 +5,7 @@ namespace ChessSimulator.Pieces
 {
     public class King : IPiece, IMoveInfo
     {
-        private bool HasMoved;
+        private bool hasMoved;
 
         public string Name { get => PieceNames.King; }
 
@@ -46,7 +46,16 @@ namespace ChessSimulator.Pieces
 
         public void Move()
         {
-            HasMoved = true;
+            hasMoved = true;
+        }
+
+        // King has not moved.
+        // Rook has not moved.
+        // King is not in check.
+        // King don't have to pass a field which would cause a check.
+        public bool CanCastle() 
+        {
+            return !hasMoved;
         }
     }
 }

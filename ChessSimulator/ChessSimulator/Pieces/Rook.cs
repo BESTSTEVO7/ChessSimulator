@@ -4,8 +4,10 @@ using System.Linq;
 
 namespace ChessSimulator.Pieces
 {
-    public class Rook : IPiece
+    public class Rook : IPiece, IMoveInfo
     {
+        private bool hasMoved;
+
         public string Name { get => PieceNames.Rook; }
 
         public Colour Colour { get; }
@@ -28,6 +30,20 @@ namespace ChessSimulator.Pieces
                 .GetPositionsUntilNotFree(southPositions, Colour)
                 .GetPositionsUntilNotFree(westPositions, Colour)
                 .ToArray();
+        }
+
+        public void Move()
+        {
+            hasMoved = true;
+        }
+
+        // King has not moved.
+        // Rook has not moved.
+        // King is not in check.
+        // King don't have to pass a field which would cause a check.
+        public bool CanCastle()
+        {
+            return !hasMoved;
         }
     }
 }
