@@ -2,9 +2,11 @@
 
 namespace ChessSimulator.Pieces
 {
-    public class Pawn : IPiece
+    public class Pawn : IPiece, IMoveInfo
     {
         private readonly Direction direction;
+
+        private bool HasMoved;
 
         public string Name { get => PieceNames.Pawn; }
 
@@ -21,7 +23,6 @@ namespace ChessSimulator.Pieces
         {
             var result = new List<Position>();
 
-            // TODO for aheadState and diagonalState check if is Onboard, otherwise i check -1 coords for example
             var aheadState = direction == Direction.North
                 ? gameBoard.GetBoardStateInfo(new Position(position.X, position.Y - 1))
                 : gameBoard.GetBoardStateInfo(new Position(position.X, position.Y + 1));
@@ -30,9 +31,23 @@ namespace ChessSimulator.Pieces
                 ? gameBoard.GetBoardStateInfo(new Position(position.X - 1, position.Y - 1), new Position(position.X + 1, position.Y - 1))
                 : gameBoard.GetBoardStateInfo(new Position(position.X - 1, position.Y + 1), new Position(position.X + 1, position.Y + 1));
 
+            // TODO I use this predicate logic on multiple places, move this to extension class e.g.
             if (aheadState is not null && aheadState.State is null)
             {
                 result.Add(aheadState.Position);
+                
+                // The first move on a pawn can be two steps forwards.
+                if (!HasMoved)
+                {
+                    var farAheadState = direction == Direction.North
+                    ? gameBoard.GetBoardStateInfo(new Position(position.X, position.Y - 2))
+                    : gameBoard.GetBoardStateInfo(new Position(position.X, position.Y + 2));
+
+                    if (farAheadState is not null && farAheadState.State is null) 
+                    {
+                        result.Add(farAheadState.Position);
+                    }
+                }
             }
 
             foreach (var boardStateInfo in diagonalStates) 
@@ -44,6 +59,11 @@ namespace ChessSimulator.Pieces
             }
 
             return result.ToArray();
+        }
+
+        public void Move()
+        {
+            HasMoved = true;
         }
     }
 }

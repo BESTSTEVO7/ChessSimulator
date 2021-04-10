@@ -41,6 +41,11 @@ namespace ChessSimulator
                 var piece = this[from];
                 this[from] = null;
                 this[to] = piece;
+                if (piece is IMoveInfo pieceMove)
+                {
+                    pieceMove.Move();
+                } 
+
                 return true;
             }
 
@@ -128,8 +133,7 @@ namespace ChessSimulator
         {
             int rows = 8;
             int columns = 8;
-            IPiece[,] newBoard = new IPiece[rows, columns];
-            var gameBoard = new GameBoard(newBoard);
+            var gameBoard = new GameBoard(new IPiece[rows, columns]);
 
             gameBoard.AddPiece(new Rook(Colour.Black), new Position(0, 0));
             gameBoard.AddPiece(new Knight(Colour.Black), new Position(1, 0));
