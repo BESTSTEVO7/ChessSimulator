@@ -1,4 +1,5 @@
 ﻿using ChessSimulator.Exceptions;
+using ChessSimulator.Extensions;
 using ChessSimulator.Pieces;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,20 +9,6 @@ namespace ChessSimulator
     public class GameBoard : IGameBoard
     {
         private readonly IPiece?[,] board;
-
-        private static readonly IReadOnlyDictionary<Direction, Position> directionDeltas =
-            new Dictionary<Direction, Position>
-            {
-                // TODO
-                [Direction.North] = new Position(0, -1),
-                [Direction.East] = new Position(1, 0),
-                [Direction.South] = new Position(0, 1),
-                [Direction.West] = new Position(-1, 0),
-                [Direction.NorthEast] = new Position(1, -1),
-                [Direction.NorthWest] = new Position(-1, -1),
-                [Direction.SouthEast] = new Position(1, 1),
-                [Direction.SouthWest] = new Position(-1, 1),
-            };
 
         public bool Move(Position from, Position to)
         {
@@ -65,10 +52,9 @@ namespace ChessSimulator
 
             return 
                 piece is not null 
-                ? piece.GetMoves(this, position) 
-                : new List<Position>();
+                    ? piece.GetMoves(this, position) 
+                    : new List<Position>();
         }
-
 
         public IEnumerable<BoardStateInfo> GetBoard()
         {
@@ -114,7 +100,7 @@ namespace ChessSimulator
 
         public IEnumerable<BoardStateInfo> GetBoardStateInfoInDirection(Direction direction, Position position)
         {
-            position += directionDeltas[direction];
+            position += DirectionDeltas.Get(direction);
 
             while (IsOnBoard(position))
             {
@@ -123,55 +109,13 @@ namespace ChessSimulator
                     yield return boardStateInfo;
                 }
 
-                position += directionDeltas[direction];
+                position += DirectionDeltas.Get(direction);
             }
         }
 
-        // TODO rethink this and check if Builder pattern would be more appropriate
-        // something like builder.AddPiece(...).AddPiece(...).AddPiece(...).BuildBoard();
         public static GameBoard GenerateStandardBoard()
         {
-            int rows = 8;
-            int columns = 8;
-            var gameBoard = new GameBoard(new IPiece[rows, columns]);
-
-            gameBoard.AddPiece(new Rook(Colour.Black), new Position(0, 0));
-            gameBoard.AddPiece(new Knight(Colour.Black), new Position(1, 0));
-            gameBoard.AddPiece(new Bishop(Colour.Black), new Position(2, 0));
-            gameBoard.AddPiece(new Queen(Colour.Black), new Position(3, 0));
-            gameBoard.AddPiece(new King(Colour.Black), new Position(4, 0));
-            gameBoard.AddPiece(new Bishop(Colour.Black), new Position(5, 0));
-            gameBoard.AddPiece(new Knight(Colour.Black), new Position(6, 0));
-            gameBoard.AddPiece(new Rook(Colour.Black), new Position(7, 0));
-
-            gameBoard.AddPiece(new Pawn(Colour.Black, Direction.East), new Position(0, 1));
-            gameBoard.AddPiece(new Pawn(Colour.Black, Direction.East), new Position(1, 1));
-            gameBoard.AddPiece(new Pawn(Colour.Black, Direction.East), new Position(2, 1));
-            gameBoard.AddPiece(new Pawn(Colour.Black, Direction.East), new Position(3, 1));
-            gameBoard.AddPiece(new Pawn(Colour.Black, Direction.East), new Position(4, 1));
-            gameBoard.AddPiece(new Pawn(Colour.Black, Direction.East), new Position(5, 1));
-            gameBoard.AddPiece(new Pawn(Colour.Black, Direction.East), new Position(6, 1));
-            gameBoard.AddPiece(new Pawn(Colour.Black, Direction.East), new Position(7, 1));
-
-            gameBoard.AddPiece(new Rook(Colour.White), new Position(0, 7));
-            gameBoard.AddPiece(new Knight(Colour.White), new Position(1, 7));
-            gameBoard.AddPiece(new Bishop(Colour.White), new Position(2, 7));
-            gameBoard.AddPiece(new Queen(Colour.White), new Position(3, 7));
-            gameBoard.AddPiece(new King(Colour.White), new Position(4, 7));
-            gameBoard.AddPiece(new Bishop(Colour.White), new Position(5, 7));
-            gameBoard.AddPiece(new Knight(Colour.White), new Position(6, 7));
-            gameBoard.AddPiece(new Rook(Colour.White), new Position(7, 7));
-
-            gameBoard.AddPiece(new Pawn(Colour.White, Direction.North), new Position(0, 6));
-            gameBoard.AddPiece(new Pawn(Colour.White, Direction.North), new Position(1, 6));
-            gameBoard.AddPiece(new Pawn(Colour.White, Direction.North), new Position(2, 6));
-            gameBoard.AddPiece(new Pawn(Colour.White, Direction.North), new Position(3, 6));
-            gameBoard.AddPiece(new Pawn(Colour.White, Direction.North), new Position(4, 6));
-            gameBoard.AddPiece(new Pawn(Colour.White, Direction.North), new Position(5, 6));
-            gameBoard.AddPiece(new Pawn(Colour.White, Direction.North), new Position(6, 6));
-            gameBoard.AddPiece(new Pawn(Colour.White, Direction.North), new Position(7, 6));
-
-            return gameBoard;
+            return new GameBoard(DefaultGameBoardExtensions.GenerateNewBoard());
         }
 
         private GameBoard(IPiece?[,] board)
@@ -190,11 +134,6 @@ namespace ChessSimulator
             return
                 -1 < position.X && position.X < board.GetLength(0) &&
                 -1 < position.Y && position.Y < board.GetLength(1);
-        }
-
-        private void AddPiece(IPiece piece, Position position)
-        {
-            this[position] = piece;
         }
     }
 }
