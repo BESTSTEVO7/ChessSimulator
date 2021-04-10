@@ -24,17 +24,14 @@ namespace ChessSimulator.Pieces
 
         public IEnumerable<Position> GetPointsArround(Position position)
         {
-            int x = 0;
-            int y = 0;
-
             var result = new List<Position>();
 
             for (int i = -1; i < 2; i++)
             {
                 for (int j = -1; j < 2; j++)
                 {
-                    x = position.X + i;
-                    y = position.Y + j;
+                    int x = position.X + i;
+                    int y = position.Y + j;
                     if ((i != 0 || j != 0) && x > -1 && y > -1)
                     {
                         result.Add(new Position(x, y));

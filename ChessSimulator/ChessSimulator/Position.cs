@@ -2,7 +2,6 @@
 
 namespace ChessSimulator
 {
-    // TODO think how to handle equals and gethashcode
     public readonly struct Position : IEquatable<Position>
     {
         public int X { get; }
