@@ -1,6 +1,7 @@
 ﻿using ChessSimulator.Exceptions;
 using ChessSimulator.Extensions;
 using ChessSimulator.Pieces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -12,22 +13,37 @@ namespace ChessSimulator
 
         public bool Move(Position from, Position to)
         {
-            if (!IsOnBoard(from))
-            {
-                throw new NotOnBoardException($"Position with x:{from.X} and y:{from.Y} is not a field on the board");
-            }
-
-            if (!IsOnBoard(to))
-            {
-                throw new NotOnBoardException($"Position with x:{to.X} and y:{to.Y} is not a field on the board");
-            }
+            ValidatePosition(from);
+            ValidatePosition(to);
 
             var possibleMoves = this[from]?.GetMoves(this, from);
             if (possibleMoves is not null && possibleMoves.Contains(to)) 
             {
+                var currentTo = this[to];
+
                 var piece = this[from];
                 this[from] = null;
                 this[to] = piece;
+
+                if (IsCheck(piece!.Colour)) 
+                {
+                    // TODO What is the correct behaviour if i set myself to check?
+                    // Invalid move or legit and I lost?
+
+                    piece = this[to];
+                    this[to] = currentTo;
+                    this[from] = piece;
+                    // TODO rethink if this resets the move correctly.
+
+                    return false;
+                }
+
+                // Did I set the enemy to check?
+                if (IsCheck(piece.Colour.GetEnemy())) 
+                {
+                    return true;
+                }
+
                 if (piece is IMoveInfo pieceMove)
                 {
                     pieceMove.Move();
@@ -135,6 +151,24 @@ namespace ChessSimulator
                 -1 < position.X && position.X < board.GetLength(0) 
                     &&
                 -1 < position.Y && position.Y < board.GetLength(1);
+        }
+
+        private void ValidatePosition(Position position)
+        {
+            if (!IsOnBoard(position))
+            {
+                throw new NotOnBoardException($"Position with x:{position.X} and y:{position.Y} is not a field on the board");
+            }
+        }
+
+        // TODO optimize this
+        // cache allied, enemies and kings in extra variables to speed up the access?
+        private bool IsCheck(Colour colour) 
+        {
+            var enemyColour = colour.GetEnemy();
+            var enemies = board.Cast<IPiece>().Where(piece => piece?.Colour == enemyColour);
+            // TODO implement
+            return false;
         }
     }
 }
