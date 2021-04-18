@@ -1,7 +1,7 @@
 ﻿using ChessSimulator.Enums;
 using System.Collections.Generic;
 
-namespace ChessSimulator
+namespace ChessSimulator.Gameboards
 {
     public interface IGameBoard
     {

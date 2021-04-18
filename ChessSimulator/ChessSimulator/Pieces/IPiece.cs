@@ -1,4 +1,5 @@
 ﻿using ChessSimulator.Enums;
+using ChessSimulator.Gameboards;
 
 namespace ChessSimulator.Pieces
 {

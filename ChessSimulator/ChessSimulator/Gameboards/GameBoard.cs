@@ -6,7 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace ChessSimulator
+namespace ChessSimulator.Gameboards
 {
     public class GameBoard : IGameBoard
     {
@@ -18,7 +18,7 @@ namespace ChessSimulator
             ValidatePosition(to);
 
             var possibleMoves = this[from]?.GetMoves(this, from);
-            if (possibleMoves is not null && possibleMoves.Contains(to)) 
+            if (possibleMoves is not null && possibleMoves.Contains(to))
             {
                 var currentTo = this[to];
 
@@ -26,7 +26,7 @@ namespace ChessSimulator
                 this[from] = null;
                 this[to] = piece;
 
-                if (IsCheck(piece!.Colour)) 
+                if (IsCheck(piece!.Colour))
                 {
                     piece = this[to];
                     this[to] = currentTo;
@@ -36,7 +36,7 @@ namespace ChessSimulator
                 }
 
                 // Did I set the enemy to check?
-                if (IsCheck(piece.Colour.GetEnemy())) 
+                if (IsCheck(piece.Colour.GetEnemy()))
                 {
                     return MoveResult.SetEnemyToCheck;
                 }
@@ -54,16 +54,16 @@ namespace ChessSimulator
 
         public IEnumerable<Position> GetMoves(Position position)
         {
-            if (!IsOnBoard(position)) 
+            if (!IsOnBoard(position))
             {
                 throw new NotOnBoardException($"Position with x:{position.X} and y:{position.Y} is not a field on the board");
             }
 
             var piece = this[position];
 
-            return 
-                piece is not null 
-                    ? piece.GetMoves(this, position) 
+            return
+                piece is not null
+                    ? piece.GetMoves(this, position)
                     : new List<Position>();
         }
 
@@ -75,14 +75,15 @@ namespace ChessSimulator
                 {
                     Position currentPosition = new Position(i, j);
                     var boardStateInfo = GetBoardStateInfo(currentPosition);
-                    if (boardStateInfo is not null) 
+                    if (boardStateInfo is not null)
                     {
                         var piece = this[currentPosition];
-                        if (piece is not null) 
+                        if (piece is not null)
                         {
                             boardStateInfo.Representation = piece.Name;
-                            
-                        }    yield return boardStateInfo;
+
+                        }
+                        yield return boardStateInfo;
                     }
                 }
             }
@@ -140,7 +141,7 @@ namespace ChessSimulator
             set { board[position.X, position.Y] = value; }
         }
 
-        private Position this[IPiece piece] 
+        private Position this[IPiece piece]
         {
             get { return GetPosition(piece); }
         }
@@ -156,7 +157,7 @@ namespace ChessSimulator
             {
                 for (int y = 0; y < h; ++y)
                 {
-                    if (board[x,y] is not null && board[x, y]!.Equals(piece))
+                    if (board[x, y] is not null && board[x, y]!.Equals(piece))
                     {
                         result = new Position(x, y);
                     }
@@ -169,7 +170,7 @@ namespace ChessSimulator
         private bool IsOnBoard(Position position)
         {
             return
-                -1 < position.X && position.X < board.GetLength(0) 
+                -1 < position.X && position.X < board.GetLength(0)
                     &&
                 -1 < position.Y && position.Y < board.GetLength(1);
         }
@@ -182,7 +183,7 @@ namespace ChessSimulator
             }
         }
 
-        private bool IsCheck(Colour colour) 
+        private bool IsCheck(Colour colour)
         {
             var enemyColour = colour.GetEnemy();
             var enemies = board.Cast<IPiece>().Where(piece => piece?.Colour == enemyColour);
@@ -190,7 +191,7 @@ namespace ChessSimulator
             var king = board.Cast<IPiece>().Where(piece => piece is King && piece?.Colour == colour).First();
             var kingPosition = this[king];
 
-            return (positions.Contains(kingPosition));
+            return positions.Contains(kingPosition);
         }
     }
 }

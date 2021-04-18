@@ -1,4 +1,5 @@
-﻿using Moq;
+﻿using ChessSimulator.Gameboards;
+using Moq;
 using NUnit.Framework;
 
 namespace ChessSimulator.Tests.Pieces

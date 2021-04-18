@@ -1,6 +1,6 @@
 ﻿using ChessSimulator.Enums;
 
-namespace ChessSimulator
+namespace ChessSimulator.Gameboards
 {
     public class BoardStateInfo
     {
