@@ -11,7 +11,7 @@ namespace ChessSimulator
     {
         private readonly IPiece?[,] board;
 
-        public bool Move(Position from, Position to)
+        public MoveResult Move(Position from, Position to)
         {
             ValidatePosition(from);
             ValidatePosition(to);
@@ -35,26 +35,25 @@ namespace ChessSimulator
                     this[from] = piece;
                     // TODO rethink if this resets the move correctly.
 
-                    return false;
+                    return MoveResult.SetMySelfToCheck;
                 }
 
                 // Did I set the enemy to check?
                 if (IsCheck(piece.Colour.GetEnemy())) 
                 {
-                    return true;
+                    return MoveResult.SetEnemyToCheck;
                 }
 
                 if (piece is IMoveInfo pieceMove)
                 {
                     pieceMove.Move();
-                } 
+                }
 
-                return true;
+                return MoveResult.Valid;
             }
 
-            return false;
-
-            // TODO
+            // TODO what is the default?
+            return MoveResult.Invalid;
         }
 
         public IEnumerable<Position> GetMoves(Position position)
@@ -145,6 +144,32 @@ namespace ChessSimulator
             set { board[position.X, position.Y] = value; }
         }
 
+        private Position this[IPiece piece] 
+        {
+            get { return GetPosition(piece); }
+        }
+
+        private Position GetPosition(IPiece piece)
+        {
+            int w = board.GetLength(0);
+            int h = board.GetLength(1);
+
+            var result = new Position(-1, -1);
+
+            for (int x = 0; x < w; ++x)
+            {
+                for (int y = 0; y < h; ++y)
+                {
+                    if (board[x,y] is not null && board[x, y]!.Equals(piece))
+                    {
+                        result = new Position(x, y);
+                    }
+                }
+            }
+
+            return result;
+        }
+
         private bool IsOnBoard(Position position)
         {
             return
@@ -167,8 +192,11 @@ namespace ChessSimulator
         {
             var enemyColour = colour.GetEnemy();
             var enemies = board.Cast<IPiece>().Where(piece => piece?.Colour == enemyColour);
-            // TODO implement
-            return false;
+            var positions = enemies.ToList().SelectMany(piece => piece.GetMoves(this, this[piece])).ToList();
+            // TODO remove duplicate positions
+            var king = board.Cast<IPiece>().Where(piece => piece is King && piece?.Colour == colour).First();
+            var kingPosition = this[king];
+            return (positions.Contains(kingPosition));
         }
     }
 }

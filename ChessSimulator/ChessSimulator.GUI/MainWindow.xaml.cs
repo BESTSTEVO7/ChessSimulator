@@ -66,7 +66,11 @@ namespace ChessSimulator.GUI
             }
             else
             {
-                gameBoard.Move(clickState.ClickPosition, position);
+                var moveResult = gameBoard.Move(clickState.ClickPosition, position);
+                if (moveResult == MoveResult.SetMySelfToCheck) 
+                {
+                    MessageBox.Show("Invalid move: Set own King to check");                        
+                }
                 clickState = null;
                 RefreshBoard();
             }

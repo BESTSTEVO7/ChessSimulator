@@ -4,7 +4,7 @@ namespace ChessSimulator
 {
     public interface IGameBoard
     {
-        public bool Move(Position from, Position to);
+        public MoveResult Move(Position from, Position to);
 
         public IEnumerable<Position> GetMoves(Position position);
 
