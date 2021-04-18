@@ -3,6 +3,7 @@
 ## Gameboard logic
 
 <ul>
+<li>Implement ruleset class</li>
 <li>Enable Castle move</li>
 <li>Recognize check mate</li>
 <li>Improve performance</li>
