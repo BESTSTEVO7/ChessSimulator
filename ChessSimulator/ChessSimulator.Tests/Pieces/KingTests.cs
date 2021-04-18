@@ -1,4 +1,5 @@
-﻿using ChessSimulator.Pieces;
+﻿using ChessSimulator.Enums;
+using ChessSimulator.Pieces;
 using FluentAssertions;
 using Moq;
 using NUnit.Framework;

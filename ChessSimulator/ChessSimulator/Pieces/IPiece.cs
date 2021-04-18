@@ -1,4 +1,6 @@
-﻿namespace ChessSimulator.Pieces
+﻿using ChessSimulator.Enums;
+
+namespace ChessSimulator.Pieces
 {
     public interface IPiece
     {

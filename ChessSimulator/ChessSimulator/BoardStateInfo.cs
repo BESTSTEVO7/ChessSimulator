@@ -1,4 +1,6 @@
-﻿namespace ChessSimulator
+﻿using ChessSimulator.Enums;
+
+namespace ChessSimulator
 {
     public class BoardStateInfo
     {

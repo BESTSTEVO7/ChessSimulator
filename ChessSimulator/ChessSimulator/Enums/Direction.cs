@@ -1,4 +1,4 @@
-﻿namespace ChessSimulator
+﻿namespace ChessSimulator.Enums
 {
     public enum Direction
     {

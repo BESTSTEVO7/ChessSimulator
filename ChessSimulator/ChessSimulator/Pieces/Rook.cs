@@ -1,4 +1,5 @@
-﻿using ChessSimulator.Extensions;
+﻿using ChessSimulator.Enums;
+using ChessSimulator.Extensions;
 using System.Collections.Generic;
 using System.Linq;
 

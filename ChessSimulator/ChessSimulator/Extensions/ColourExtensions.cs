@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ChessSimulator.Enums;
+using System;
 
 namespace ChessSimulator.Extensions
 {

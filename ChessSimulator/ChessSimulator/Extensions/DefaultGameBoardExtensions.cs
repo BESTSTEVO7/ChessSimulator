@@ -1,4 +1,5 @@
-﻿using ChessSimulator.Pieces;
+﻿using ChessSimulator.Enums;
+using ChessSimulator.Pieces;
 
 namespace ChessSimulator.Extensions
 {

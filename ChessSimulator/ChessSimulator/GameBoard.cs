@@ -1,4 +1,5 @@
-﻿using ChessSimulator.Exceptions;
+﻿using ChessSimulator.Enums;
+using ChessSimulator.Exceptions;
 using ChessSimulator.Extensions;
 using ChessSimulator.Pieces;
 using System;

@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using ChessSimulator.Enums;
+using System.Linq;
 
 namespace ChessSimulator.Pieces
 {

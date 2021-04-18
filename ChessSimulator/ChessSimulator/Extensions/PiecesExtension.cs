@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using ChessSimulator.Enums;
+using System.Collections.Generic;
 
 namespace ChessSimulator.Extensions
 {
