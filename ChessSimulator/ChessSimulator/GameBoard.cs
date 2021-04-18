@@ -27,13 +27,9 @@ namespace ChessSimulator
 
                 if (IsCheck(piece!.Colour)) 
                 {
-                    // TODO What is the correct behaviour if i set myself to check?
-                    // Invalid move or legit and I lost?
-
                     piece = this[to];
                     this[to] = currentTo;
                     this[from] = piece;
-                    // TODO rethink if this resets the move correctly.
 
                     return MoveResult.SetMySelfToCheck;
                 }
@@ -52,7 +48,6 @@ namespace ChessSimulator
                 return MoveResult.Valid;
             }
 
-            // TODO what is the default?
             return MoveResult.Invalid;
         }
 
@@ -186,16 +181,14 @@ namespace ChessSimulator
             }
         }
 
-        // TODO optimize this
-        // cache allied, enemies and kings in extra variables to speed up the access?
         private bool IsCheck(Colour colour) 
         {
             var enemyColour = colour.GetEnemy();
             var enemies = board.Cast<IPiece>().Where(piece => piece?.Colour == enemyColour);
-            var positions = enemies.ToList().SelectMany(piece => piece.GetMoves(this, this[piece])).ToList();
-            // TODO remove duplicate positions
+            var positions = enemies.SelectMany(piece => piece.GetMoves(this, this[piece])).Distinct().ToList();
             var king = board.Cast<IPiece>().Where(piece => piece is King && piece?.Colour == colour).First();
             var kingPosition = this[king];
+
             return (positions.Contains(kingPosition));
         }
     }
